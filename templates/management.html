@@ -1,0 +1,118 @@
+{% from 'components/app-logo.html' import app_logo with context %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta title="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes</title>
+    <!-- Include Tailwind CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body class="bg-gray-100 font-sans">
+    <nav class="bg-white border-b border-gray-200 dark:bg-gray-900">
+        <div class="container mx-auto flex flex-wrap items-center justify-between">
+          {{app_logo()}}
+          <ul class="flex-row md:flex-row flex md:space-x-90 mt-4 md:mt-0 md:text-sm md:font-medium">
+            
+            <li><a href="#" class="text-gray-700 dark:text-white">Home</a></li>
+            <li><a href="#" class="text-gray-700 dark:text-white">Management</a></li>
+            <li><a href="#" class="text-gray-700 dark:text-white">Login</a></li>
+            <li><a href="#" class="text-gray-700 dark:text-white">Logout</a></li>
+          </ul>
+        </div>
+      </nav>
+    <!-- Modal toggle -->
+    <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+        +Add Notes
+    </button>
+
+    <div class="container mx-auto mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Example Card 1 -->
+        <div class="bg-white p-4 rounded-lg shadow-md">
+            <h3 class="text-lg font-semibold mb-2">Card Title 1</h3>
+            <p class="text-gray-600">Card description goes here.</p>
+        </div>
+
+        <!-- Example Card 2 -->
+        <div class="bg-white p-4 rounded-lg shadow-md">
+            <h3 class="text-lg font-semibold mb-2">Card Title 2</h3>
+            <p class="text-gray-600">Card description goes here.</p>
+        </div>
+
+        <!-- Example Card 3 -->
+        <div class="bg-white p-4 rounded-lg shadow-md">
+            <h3 class="text-lg font-semibold mb-2">Card Title 3</h3>
+            <p class="text-gray-600">Card description goes here.</p>
+        </div>
+    </div>
+
+
+    <!-- Main modal container -->
+    <div id="crud-modal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 overflow-auto bg-gray-500 bg-opacity-50">
+
+        <!-- Modal content -->
+        <div class="flex items-center justify-center min-h-screen p-4">
+
+            <!-- Modal body -->
+            <div class="bg-white rounded-lg shadow-md w-full max-w-md">
+
+                <!-- Modal header -->
+                <div class="bg-blue-500 text-white py-4 px-6 rounded-t-lg">
+                    <h3 class="text-lg font-semibold">Add</h3>
+                    <button type="button" class="float-right text-gray-200 hover:text-gray-300 focus:outline-none" data-modal-toggle="crud-modal">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12M7 7l6-6M7 7l-6 6"></path>
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+
+                <!-- Modal body/form -->
+                <form class="p-6">
+                    <div class="grid gap-4 mb-4 grid-cols-2">
+                        <div class="col-span-2">
+                            <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
+                            <input type="text" title="title" id="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="title" required="">
+                        </div>
+                      
+                        <div class="col-span-2">
+                            <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                            <textarea id="description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write description here"></textarea>                    
+                        </div>
+    
+                    </div>
+                    <button type="submit" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
+                        </svg>Add
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
+    <!-- JavaScript for modal interactions -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const modalToggleButtons = document.querySelectorAll('[data-modal-toggle]');
+            const modalCloseButtons = document.querySelectorAll('[data-modal-hide]');
+
+            modalToggleButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetModal = document.getElementById(button.dataset.modalToggle);
+                    targetModal.classList.toggle('hidden');
+                });
+            });
+
+            modalCloseButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetModal = document.getElementById(button.dataset.modalHide);
+                    targetModal.classList.add('hidden');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

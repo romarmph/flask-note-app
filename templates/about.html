@@ -1,0 +1,134 @@
+{% from 'components/app-logo.html' import app_logo with context %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flowbite Flask</title>
+  <link rel="stylesheet" href="{{url_for('static',filename='dist/css/output.css')}}" />
+  <style>
+    body {
+      background-color: #fffefe;
+    }
+
+    .container {
+      position: relative;
+    }
+
+    .background-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100px; /* Adjust the width as needed */
+      height: 100px; /* Adjust the height as needed */
+      object-fit: cover;
+      object-position: top left;
+      z-index: -1;
+    }
+
+    .content {
+      padding-left: 120px; /* Adjust the padding to accommodate the image width */
+    }
+  </style>
+</head>
+
+<body class="font-sans">
+  <nav class="bg-white border-b border-gray-200 dark:bg-gray-900">
+    <div class="container mx-auto flex flex-wrap items-center justify-between py-4">
+      {{app_logo()}}
+      <ul class="flex md:space-x-4 text-gray-700 dark:text-white">
+        <li><a href="#" class="hover:text-blue-500">Home</a></li>
+        <li><a href="#" class="hover:text-blue-500">Management</a></li>
+        <li><a href="#" class="hover:text-blue-500">Login</a></li>
+        <li><a href="#" class="hover:text-blue-500">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container mx-auto mt-8">
+    <div class="background-image">
+      <img src="images/image1.png" alt="Background Image 1">
+    </div>
+    <div class="content">
+      <h1 class="text-4xl font-bold text-gray-800 dark:text-white mb-4">Welcome to Our Management Solutions Platform</h1>
+      <p class="text-gray-600 dark:text-gray-300 leading-loose">
+        In the Python elective (Elective 4), my learning journey has been both comprehensive and enriching. Beginning with
+        the fundamentals, I mastered Python syntax, data types, and control structures, ensuring the ability to write
+        efficient and clean code. The exploration of diverse data structures such as lists, tuples, dictionaries, and
+        sets equipped me with the skills to organize and manipulate data effectively. I delved into the world of
+        functions and modules, learning to create modular and reusable code, and grasped the principles of
+        Object-Oriented Programming (OOP), applying concepts like encapsulation and inheritance. File handling became
+        second nature as I acquired practical skills in reading from and writing to files. Exception handling was
+        emphasized, providing a solid foundation for writing robust and reliable code.
+      </p>
+      <p class="text-gray-600 dark:text-gray-300 mt-4">
+        The elective also ventured into algorithms and problem-solving, fostering an understanding of algorithmic
+        thinking and the optimization of code for performance. Practical applications extended to web scraping
+        techniques, enabling the extraction of data from websites, and automation, streamlining repetitive tasks. The
+        utilization of libraries such as Pandas and Matplotlib facilitated data analysis and visualization, enhancing
+        my ability to interpret and present data effectively.
+      </p>
+      <p class="text-gray-600 dark:text-gray-300 mt-4">
+        As the elective progressed, a pivotal aspect was the culmination in a project, where I applied the skills
+        acquired in a real-world scenario. This hands-on experience not only reinforced theoretical knowledge but also
+        showcased my ability to tackle diverse challenges in programming and software development. Overall, the Python
+        elective has provided me with a solid foundation, combining theoretical understanding with practical
+        applications, preparing me for the complexities of the programming landscape.
+      </p>
+      <p class="text-gray-600 dark:text-gray-300 mt-4 font-bold">
+        -Ashley Sumagaysay
+      </p>
+    </div>
+  </div>
+
+  <div class="container mx-auto mt-8">
+    <div class="background-image">
+      <img src="image_url_2.jpg" alt="Background Image 2">
+    </div>
+    <div class="content">
+      <p class="text-gray-600 dark:text-gray-300 leading-loose">
+        In my pursuit of knowledge through the Python elective (Elective 4), I have undergone a transformative learning
+        experience encompassing a broad spectrum of programming concepts and practical applications. Commencing with
+        the basics, I honed my proficiency in Python syntax, data types, and control structures, cultivating the
+        ability to craft code that is not only effective but also adheres to best practices. The exploration of diverse
+        data structures, including lists, tuples, dictionaries, and sets, equipped me with the skills to efficiently
+        organize and manipulate data.
+      </p>
+      <p class="text-gray-600 dark:text-gray-300 mt-4">
+        Venturing further, the course delved into the intricacies of functions and modules, fostering an
+        understanding of modularity and code reusability. Object-Oriented Programming (OOP) principles were
+        elucidated, providing insights into class design, object creation, and the principles of encapsulation and
+        inheritance. The practical aspects of file handling were emphasized, granting me the capability to read from
+        and write to files with ease.
+      </p>
+      <p class="text-gray-600 dark:text-gray-300 mt-4">
+        Exception handling emerged as a critical component, instilling the importance of graceful error management and
+        fortifying my code against unforeseen issues. Algorithmic thinking became second nature as I delved into
+        various algorithms and problem-solving techniques, refining my ability to design efficient and optimized
+        solutions.
+      </p>
+      <p class="text-gray-600 dark:text-gray-300 mt-4">
+        The elective also ventured into practical applications, including web scraping techniques for data extraction
+        from websites and automation for streamlining repetitive tasks. Utilizing libraries such as Pandas and
+        Matplotlib, I gained proficiency in data analysis and visualization, enhancing my capacity to derive
+        meaningful insights from datasets.
+      </p>
+      <p class="text-gray-600 dark:text-gray-300 mt-4">
+        The elective's culmination in a project was a testament to the practical application of acquired knowledge.
+        This hands-on experience allowed me to synthesize theoretical understanding into a real-world context,
+        showcasing my ability to tackle diverse challenges in the realm of programming and software development.
+        Overall, the Python elective has been a comprehensive and enriching journey, equipping me with a versatile
+        skill set and preparing me to navigate the complexities of the ever-evolving programming landscape.
+      </p>
+      <p class="text-gray-600 dark:text-gray-300 mt-4 font-bold">
+        -Romar Macaraeg
+      </p>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.js"></script>
+</body>
+
+</html>

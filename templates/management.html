@@ -1,4 +1,6 @@
-{% from 'components/app-logo.html' import app_logo with context %}
+{% from 'components/app-logo.html' import app_logo with context %} {% from
+'components/read.html' import read_note_modal with context %} {% from
+'components/update.html' import update_note_modal with context %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -121,25 +123,165 @@
     </nav>
 
     <div class="mx-auto max-w-7xl">
-      <button
-        data-modal-target="crud-modal"
-        data-modal-toggle="crud-modal"
-        class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        type="button"
-      >
-        +Add Notes
-      </button>
+      <div class="flex items-center justify-end gap-4">
+        {% with messages = get_flashed_messages() %} {% if messages %} {% for
+        message in messages %}
+        <p class="p-2 text-red-500 bg-red-200 border border-red-500 rounded-lg">
+          {{ message }}
+        </p>
+        {% endfor %} {% endif %} {% endwith %}
+        <button
+          data-modal-target="crud-modal"
+          data-modal-toggle="crud-modal"
+          class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mb-6"
+          type="button"
+        >
+          Add Note
+        </button>
+      </div>
 
-      <table id="notes" class="display" style="width: 100%">
+      <table
+        id="notes"
+        class="display wrap table-hover table-bordered"
+        style="width: 100%"
+      >
         <thead>
           <tr>
             <th>Title</th>
             <th>Content</th>
             <th>Date Created</th>
+            <th>Actions</th>
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+          {% for note in notes %}
+          <tr>
+            <td>{{ note.title }}</td>
+            <td>{{ note.content }}</td>
+            <td>{{ note.created_at }}</td>
+            <td class="flex gap-2 max-w-80 overflow-ellipsis">
+              <button
+                type="button"
+                class="p-1 text-white bg-green-500 rounded-lg"
+                data-modal-toggle="note-{{ note.id }}"
+                data-modal-target="note-{{ note.id }}"
+              >
+                View
+              </button>
+              {{ read_note_modal(note.id, note.title, note.content) }}
+              <button
+                type="button"
+                class="p-1 text-white bg-blue-500 rounded-lg"
+                data-modal-toggle="note-{{ note.id }}-update"
+                data-modal-target="note-{{ note.id }}-update"
+              >
+                Update
+              </button>
+              {{ update_note_modal(note.id, note.title, note.content) }}
+              <a
+                href="/delete/{{ note.id }}"
+                class="p-1 text-white bg-red-500 rounded-lg"
+                >Delete</a
+              >
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
       </table>
+    </div>
+
+    <div
+      id="crud-modal"
+      tabindex="-1"
+      aria-hidden="true"
+      class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
+    >
+      <div class="relative w-full max-w-md max-h-full p-4 bg-transparent">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+          <div
+            class="flex items-center justify-between p-4 border-b rounded-t md:p-5 dark:border-gray-600"
+          >
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+              Create New Note
+            </h3>
+            <button
+              type="button"
+              class="inline-flex items-center justify-center w-8 h-8 text-sm text-gray-400 bg-transparent rounded-lg hover:bg-gray-200 hover:text-gray-900 ms-auto dark:hover:bg-gray-600 dark:hover:text-white"
+              data-modal-toggle="crud-modal"
+            >
+              <svg
+                class="w-3 h-3"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 14 14"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                />
+              </svg>
+              <span class="sr-only">Close modal</span>
+            </button>
+          </div>
+          <!-- Modal body -->
+          <form class="p-4 md:p-5" method="post" action="/add">
+            <div class="grid grid-cols-2 gap-4 mb-4">
+              <div class="col-span-2">
+                <label
+                  for="title"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >Name</label
+                >
+                <input
+                  type="text"
+                  name="title"
+                  id="title"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="What's your note called?"
+                />
+              </div>
+
+              <div class="col-span-2">
+                <label
+                  for="description"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >Write your notes...</label
+                >
+                <textarea
+                  id="content"
+                  name="content"
+                  rows="6"
+                  cols="50"
+                  class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Write product description here"
+                ></textarea>
+              </div>
+            </div>
+            <button
+              type="submit"
+              class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              <svg
+                class="w-5 h-5 me-1 -ms-1"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+              Add new note
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
 
     <script>
@@ -147,7 +289,7 @@
         $("#notes").DataTable({
           columnDefs: [
             {
-              width: "30%",
+              width: "20%",
               targets: 0,
             },
             {
@@ -155,12 +297,13 @@
               targets: 1,
             },
             {
-              width: "10%",
+              width: "20%",
               targets: 2,
             },
           ],
         });
       });
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.js"></script>
   </body>
 </html>

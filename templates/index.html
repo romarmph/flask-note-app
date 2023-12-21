@@ -1,64 +1,316 @@
 {% from 'components/app-logo.html' import app_logo with context %}
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Flowbite Flask</title>
+    <title>Procastinotes | Home</title>
     <link
       rel="stylesheet"
       href="{{url_for('static',filename='dist/css/output.css')}}"
     />
+    <style>
+      body {
+        background-color: #fffefe;
+      }
+
+      .container {
+        position: relative;
+      }
+
+      .background-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100px; /* Adjust the width as needed */
+        height: 100px; /* Adjust the height as needed */
+        object-fit: cover;
+        object-position: top left;
+        z-index: -1;
+      }
+
+      .content {
+        padding-left: 120px; /* Adjust the padding to accommodate the image width */
+      }
+    </style>
   </head>
-  <body>
-    <div class="w-full h-screen flex justify-center items-center">
-      <div class="p-8 border-2 border-gray-200 rounded-lg">
-        <form method="POST" class="min-w-[400px]">
-          {{app_logo()}}
-          <h2 class="text-5xl font-black text-gray-700 mb-4">Welcome back!</h2>
-          <p class="text-gray-500 mb-2 mt-8">
-            Please enter your username and password to continue.
-          </p>
-          <div class="mb-5">
-            <label
-              for="username"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >Your username</label
-            >
-            <input
-              type="text"
-              name="username"
-              id="username"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder=""
-              required
-            />
-          </div>
-          <div class="mb-5">
-            <label
-              for="password"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >Your password</label
-            >
-            <input
-              type="password"
-              id="password"
-              name="password"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+
+  <body class="font-sans">
+    <nav class="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+      <div
+        class="flex flex-wrap items-center justify-between max-w-screen-xl p-4 mx-auto"
+      >
+        <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
+          {{ app_logo() }}
+        </a>
+        <button
+          data-collapse-toggle="navbar-dropdown"
+          type="button"
+          class="inline-flex items-center justify-center w-10 h-10 p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+          aria-controls="navbar-dropdown"
+          aria-expanded="false"
+        >
+          <span class="sr-only">Open main menu</span>
+          <svg
+            class="w-5 h-5"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 17 14"
           >
-            Login
-          </button>
-        </form>
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M1 1h15M1 7h15M1 13h15"
+            />
+          </svg>
+        </button>
+        <div class="hidden w-full md:block md:w-auto" id="navbar-dropdown">
+          <ul
+            class="flex flex-col p-4 mt-4 font-medium border border-gray-100 rounded-lg md:p-0 bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
+          >
+            <li>
+              <a
+                href="/"
+                class="block px-3 py-2 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent"
+                aria-current="page"
+                >Home</a
+              >
+            </li>
+
+            <li>
+              <a
+                href="/management"
+                class="block px-3 py-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                >Management</a
+              >
+            </li>
+
+            <li>
+              <button
+                id="dropdownNavbarLink"
+                data-dropdown-toggle="dropdownNavbar"
+                class="flex items-center justify-between w-full px-3 py-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
+              >
+                Account
+                <svg
+                  class="w-2.5 h-2.5 ms-2.5"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 10 6"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="m1 1 4 4 4-4"
+                  />
+                </svg>
+              </button>
+              <!-- Dropdown menu -->
+              <div
+                id="dropdownNavbar"
+                class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
+              >
+                <div class="py-1">
+                  <a
+                    href="/logout"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                    >Sign out</a
+                  >
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
+    </nav>
+
+    <main>
+      <section class="bg-white dark:bg-gray-900">
+        <div
+          class="px-4 py-8 mx-auto text-center max-w-screen-2xl lg:py-16 lg:px-6"
+        >
+          <figure class="max-w-screen-xl mx-auto">
+            <svg
+              class="h-12 mx-auto mb-3 text-gray-400 dark:text-gray-600"
+              viewBox="0 0 24 27"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.017 18L14.017 10.609C14.017 4.905 17.748 1.039 23 0L23.995 2.151C21.563 3.068 20 5.789 20 8H24V18H14.017ZM0 18V10.609C0 4.905 3.748 1.038 9 0L9.996 2.151C7.563 3.068 6 5.789 6 8H9.983L9.983 18L0 18Z"
+                fill="currentColor"
+              />
+            </svg>
+            <blockquote>
+              <p class="text-xl font-medium text-gray-900 dark:text-white">
+                In the Python elective (Elective 4), my learning journey has
+                been both comprehensive and enriching. Beginning with the
+                fundamentals, I mastered Python syntax, data types, and control
+                structures, ensuring the ability to write efficient and clean
+                code. The exploration of diverse data structures such as lists,
+                tuples, dictionaries, and sets equipped me with the skills to
+                organize and manipulate data effectively. I delved into the
+                world of functions and modules, learning to create modular and
+                reusable code, and grasped the principles of Object-Oriented
+                Programming (OOP), applying concepts like encapsulation and
+                inheritance. File handling became second nature as I acquired
+                practical skills in reading from and writing to files. Exception
+                handling was emphasized, providing a solid foundation for
+                writing robust and reliable code.
+              </p>
+            </blockquote>
+            <blockquote>
+              <p class="text-xl font-medium text-gray-900 dark:text-white">
+                The elective also ventured into algorithms and problem-solving,
+                fostering an understanding of algorithmic thinking and the
+                optimization of code for performance. Practical applications
+                extended to web scraping techniques, enabling the extraction of
+                data from websites, and automation, streamlining repetitive
+                tasks. The utilization of libraries such as Pandas and
+                Matplotlib facilitated data analysis and visualization,
+                enhancing my ability to interpret and present data effectively.
+              </p>
+            </blockquote>
+            <blockquote>
+              <p class="text-xl font-medium text-gray-900 dark:text-white">
+                As the elective progressed, a pivotal aspect was the culmination
+                in a project, where I applied the skills acquired in a
+                real-world scenario. This hands-on experience not only
+                reinforced theoretical knowledge but also showcased my ability
+                to tackle diverse challenges in programming and software
+                development. Overall, the Python elective has provided me with a
+                solid foundation, combining theoretical understanding with
+                practical applications, preparing me for the complexities of the
+                programming landscape.
+              </p>
+            </blockquote>
+            <figcaption class="flex items-center justify-center mt-6 space-x-3">
+              <img
+                class="w-12 h-12 rounded-full"
+                src="{{url_for('static',filename='images/ashley.jpg')}}"
+                alt="profile picture"
+              />
+              <div
+                class="flex items-center divide-x-2 divide-gray-500 dark:divide-gray-700"
+              >
+                <div class="pr-3 font-medium text-gray-900 dark:text-white">
+                  Ashley Sumagaysay
+                </div>
+                <div
+                  class="pl-3 text-sm font-light text-gray-500 dark:text-gray-400"
+                >
+                  Front-End Web Developer
+                </div>
+              </div>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+      <section class="bg-white dark:bg-gray-900">
+        <div
+          class="px-4 py-8 mx-auto text-center max-w-screen-2xl lg:py-16 lg:px-6"
+        >
+          <figure class="max-w-screen-xl mx-auto">
+            <svg
+              class="h-12 mx-auto mb-3 text-gray-400 dark:text-gray-600"
+              viewBox="0 0 24 27"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.017 18L14.017 10.609C14.017 4.905 17.748 1.039 23 0L23.995 2.151C21.563 3.068 20 5.789 20 8H24V18H14.017ZM0 18V10.609C0 4.905 3.748 1.038 9 0L9.996 2.151C7.563 3.068 6 5.789 6 8H9.983L9.983 18L0 18Z"
+                fill="currentColor"
+              />
+            </svg>
+            <blockquote>
+              <p class="text-xl font-medium text-gray-900 dark:text-white">
+                In my pursuit of knowledge through the Python elective (Elective
+                4), I have undergone a transformative learning experience
+                encompassing a broad spectrum of programming concepts and
+                practical applications. Commencing with the basics, I honed my
+                proficiency in Python syntax, data types, and control
+                structures, cultivating the ability to craft code that is not
+                only effective but also adheres to best practices. The
+                exploration of diverse data structures, including lists, tuples,
+                dictionaries, and sets, equipped me with the skills to
+                efficiently organize and manipulate data.
+              </p>
+            </blockquote>
+            <blockquote>
+              <p class="text-xl font-medium text-gray-900 dark:text-white">
+                Venturing further, the course delved into the intricacies of
+                functions and modules, fostering an understanding of modularity
+                and code reusability. Object-Oriented Programming (OOP)
+                principles were elucidated, providing insights into class
+                design, object creation, and the principles of encapsulation and
+                inheritance. The practical aspects of file handling were
+                emphasized, granting me the capability to read from and write to
+                files with ease.
+              </p>
+            </blockquote>
+            <blockquote>
+              <p class="text-xl font-medium text-gray-900 dark:text-white">
+                Exception handling emerged as a critical component, instilling
+                the importance of graceful error management and fortifying my
+                code against unforeseen issues. Algorithmic thinking became
+                second nature as I delved into various algorithms and
+                problem-solving techniques, refining my ability to design
+                efficient and optimized solutions.
+              </p>
+            </blockquote>
+            <blockquote>
+              <p class="text-xl font-medium text-gray-900 dark:text-white">
+                The elective also ventured into practical applications,
+                including web scraping techniques for data extraction from
+                websites and automation for streamlining repetitive tasks.
+                Utilizing libraries such as Pandas and Matplotlib, I gained
+                proficiency in data analysis and visualization, enhancing my
+                capacity to derive meaningful insights from datasets.
+              </p>
+            </blockquote>
+            <blockquote>
+              <p class="text-xl font-medium text-gray-900 dark:text-white">
+                The elective's culmination in a project was a testament to the
+                practical application of acquired knowledge. This hands-on
+                experience allowed me to synthesize theoretical understanding
+                into a real-world context, showcasing my ability to tackle
+                diverse challenges in the realm of programming and software
+                development. Overall, the Python elective has been a
+                comprehensive and enriching journey, equipping me with a
+                versatile skill set and preparing me to navigate the
+                complexities of the ever-evolving programming landscape.
+              </p>
+            </blockquote>
+            <figcaption class="flex items-center justify-center mt-6 space-x-3">
+              <img
+                class="w-12 h-12 rounded-full"
+                src="{{url_for('static',filename='images/me.jpg')}}"
+                alt="profile picture"
+              />
+              <div
+                class="flex items-center divide-x-2 divide-gray-500 dark:divide-gray-700"
+              >
+                <div class="pr-3 font-medium text-gray-900 dark:text-white">
+                  Romar Macaraeg
+                </div>
+                <div
+                  class="pl-3 text-sm font-light text-gray-500 dark:text-gray-400"
+                >
+                  Web Developer
+                </div>
+              </div>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+    </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.js"></script>
   </body>

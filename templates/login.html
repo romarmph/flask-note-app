@@ -1,0 +1,75 @@
+{% from 'components/app-logo.html' import app_logo with context %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link
+      rel="stylesheet"
+      href="{{url_for('static',filename='dist/css/output.css')}}"
+    />
+  </head>
+  <body>
+    <div class="flex items-center justify-center w-full h-screen">
+      <div class="p-8 border-2 border-gray-200 rounded-lg">
+        <form method="POST" action="/login" class="min-w-[400px]">
+          {{app_logo()}}
+          <h2 class="mb-4 text-5xl font-black text-gray-700">Welcome back!</h2>
+          <p class="mt-8 mb-2 text-gray-500">
+            Please enter your username and password to continue.
+          </p>
+
+          <div class="mb-5">
+            <label
+              for="username"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >Your username</label
+            >
+            <input
+              type="text"
+              name="username"
+              id="username"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder=""
+            />
+          </div>
+          <div class="mb-5">
+            <label
+              for="password"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >Your password</label
+            >
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            />
+          </div>
+          {% with messages = get_flashed_messages() %} {% if messages %}
+          <ul class="my-2 flashes">
+            {% for message in messages %}
+            <li
+              class="p-2 text-red-500 bg-red-200 border border-red-500 rounded-lg"
+            >
+              {{ message }}
+            </li>
+            {% endfor %}
+          </ul>
+          {% endif %} {% endwith %}
+          <button
+            type="submit"
+            class="text-white w-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
+            Login
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.js"></script>
+  </body>
+</html>
